@@ -69,3 +69,13 @@ vim.g.netrw_banner = 0
 -- vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize = 40
 vim.g.netrw_bufsettings = "noma nomod nu nowrap ro nobl"
+
+-- hover menu
+-- https://neovim.discourse.group/t/lsp-hover-float-window-too-wide/3276
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = opts.border or "single"
+    opts.max_width = opts.max_width or 80
+    return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end

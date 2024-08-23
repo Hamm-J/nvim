@@ -41,8 +41,13 @@ return {
             defaults = {
                 layout_strategy = 'vertical',
                 layout_config = {
-                    height = 0.95,
-                    width = 0.95,
+                    width = { padding = 0 },
+                    height = { padding = 0 },
+                    -- height = 0.95,
+                    -- width = 0.95,
+                    vertical = {
+                        preview_cutoff = 0,
+                    }
                 },
                 mappings = {
                     i = {
@@ -57,6 +62,7 @@ return {
                         ["<S-k>"] = actions.cycle_history_prev,
                     },
                 },
+                borderchars = { "", "", "", "", "", "", "", "" }
             },
             pickers = {
                 find_files = {

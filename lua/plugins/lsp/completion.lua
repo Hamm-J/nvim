@@ -1,4 +1,4 @@
-return { -- Autocompletion
+return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
 	dependencies = {
@@ -48,7 +48,11 @@ return { -- Autocompletion
 					luasnip.lsp_expand(args.body)
 				end,
 			},
-			completion = { completeopt = "menu,menuone,noinsert" },
+			completion = {
+				completeopt = "menu,menuone,noinsert",
+				-- disable completion while typing
+				autocomplete = false,
+			},
 
 			-- For an understanding of why these mappings were
 			-- chosen, you will need to read `:help ins-completion`

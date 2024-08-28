@@ -147,7 +147,14 @@ return {
             --    https://github.com/pmizio/typescript-tools.nvim
             --
             -- But for many setups, the LSP (`tsserver`) will work just fine
-            tsserver = {},
+            tsserver = {
+                settings = {
+                    -- add type linting to .js files via jsdoc
+                    implicitProjectConfiguration = {
+                        checkJs = true
+                    },
+                }
+            },
             --
             volar = {
                 filetypes = { "vue" },

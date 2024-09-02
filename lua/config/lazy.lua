@@ -34,4 +34,6 @@ require("lazy").setup({
 	install = { colorscheme = { "habamax" } },
 	-- automatically check for plugin updates
 	checker = { enabled = false },
+    -- disble alerting nvim clients when the config is changed
+	change_detection = { notify = false },
 })

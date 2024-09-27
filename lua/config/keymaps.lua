@@ -59,7 +59,7 @@ keymap.set("n", "<c-b>", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- *** jumplist ***
 -- keymap.set("n", "<leader>j", ":jumps<CR>")
-keymap.set("n", "<leader>j", ":Telescope jumplist<CR>")
+-- keymap.set("n", "<leader>j", ":Telescope jumplist<CR>")
 keymap.set("n", "<leader>cj", ":clearjumps<CR>")
 
 -- *** fuzzy search ***

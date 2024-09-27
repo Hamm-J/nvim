@@ -147,7 +147,7 @@ return {
             --    https://github.com/pmizio/typescript-tools.nvim
             --
             -- But for many setups, the LSP (`tsserver`) will work just fine
-            tsserver = {
+            ts_ls = {
                 settings = {
                     -- add type linting to .js files via jsdoc
                     implicitProjectConfiguration = {

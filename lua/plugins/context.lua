@@ -15,10 +15,8 @@ return {
             zindex = 20,     -- The Z-index of the context window
             on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
         })
-        vim.cmd([[ hi TreesitterContext guibg=none ]])
-        -- vim.cmd([[ hi TreesitterContextBottom gui=underline guisp=white ]])
-        vim.cmd([[ hi TreesitterContextLineNumberBottom gui=underline guisp=white ]])
-        -- vim.cmd([[hi TreesitterContextLineNumber gui=underline guisp=Grey ]])
+        vim.cmd([[hi clear TreesitterContextLineNumber]])
+        vim.cmd([[hi link TreesitterContextLineNumber NormalFloat ]])
     end
 
 }

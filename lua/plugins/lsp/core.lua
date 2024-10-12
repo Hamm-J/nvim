@@ -138,10 +138,7 @@ return {
             templ = {},
 
             elixirls = {
-                cmd = { "/users/jason/.local/share/lsp/elixir-ls-v0.19.0/language_server.sh" },
-                flags = {
-                    debounce_text_changes = 150,
-                },
+                cmd = { "/users/jason/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" }
             },
             -- Some languages (like typescript) have entire language plugins that can be useful:
             --    https://github.com/pmizio/typescript-tools.nvim

@@ -117,7 +117,15 @@ return {
 					initial_mode = "normal",
 					fname_width = 90,
                 },
+                lsp_references = {
+					initial_mode = "normal",
+					fname_width = 90,
+                },
 				keymaps = {
+					initial_mode = "normal",
+					fname_width = 90,
+				},
+				marks = {
 					initial_mode = "normal",
 					fname_width = 90,
 				},
@@ -149,6 +157,7 @@ return {
 		vim.keymap.set("n", "<leader>li", builtin.lsp_incoming_calls, { desc = "[L]SP [I]ncoming Calls" })
 		vim.keymap.set("n", "<leader>lo", builtin.lsp_outgoing_calls, { desc = "[L]SP [O]utgoing Calls" })
 		vim.keymap.set("n", "<leader>k", builtin.keymaps, { desc = "[K]eymaps" })
+		vim.keymap.set("n", "<leader>m", builtin.marks, { desc = "[M]arks" })
 
 		-- Slightly advanced example of overriding default behavior and theme
 		vim.keymap.set("n", "<leader>/", function()

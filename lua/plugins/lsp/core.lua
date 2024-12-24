@@ -166,24 +166,28 @@ return {
                 },
             },
 
-            tailwindcss = {
-                filetypes = {
-                    "javascript",
-                    "typescript",
-                    "html",
-                    "react",
-                    "vue",
-                    "css",
-                    "templ",
-                },
-                init_options = {
-                    userLanguages = {
-                        templ = "html",
-                    },
-                },
-            },
+            -- tailwindcss = {
+            --     filetypes = {
+            --         "javascript",
+            --         "typescript",
+            --         "html",
+            --         "react",
+            --         "vue",
+            --         "css",
+            --         "templ",
+            --         -- "heex"
+            --     },
+            --     init_options = {
+            --         userLanguages = {
+            --             templ = "html",
+            --         },
+            --     },
+            -- },
 
-            htmx = {},
+            sqlls = {
+                autostart = false,
+            },
+            -- htmx = {},
 
             lua_ls = {
                 -- cmd = {...},

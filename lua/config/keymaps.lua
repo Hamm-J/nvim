@@ -66,8 +66,8 @@ keymap.set("n", "<leader>cj", ":clearjumps<CR>")
 -- plugin: telescope
 keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>")
 keymap.set("n", "<leader><C-p>", "<cmd>Telescope resume<cr>")
-keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>")
-keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>")
+-- keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>")
+-- keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>")
 -- keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
 keymap.set("n", "<c-n>", "<cmd>Telescope buffers<cr>")
 keymap.set("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
@@ -106,7 +106,7 @@ keymap.set("n", "<leader>dc", ':lua require("dapui").float_element("stacks", { e
 -- *** lsp ***
 -- keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
 keymap.set("n", "<leader>lr", ":LspRestart<CR>")
-keymap.set("n", "<leader>li", ":LspInfo<CR>")
+-- keymap.set("n", "<leader>li", ":LspInfo<CR>")
 
 -- *** git ***
 -- plugin: gitsigns

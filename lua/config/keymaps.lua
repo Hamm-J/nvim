@@ -52,6 +52,9 @@ keymap.set("n", "g#b", ":b#<CR>")
 keymap.set("n", "<leader>sn", "<C-w>T")
 keymap.set("n", "<leader>bf", ":buffers<CR>")
 
+--- *** plugin zenmode ***
+keymap.set("n", "<leader>z", ":ZenMode<CR>")
+
 -- *** file explorer ***
 -- keymap.set("n", "<c-b>", ":Explore<CR>")
 -- keymap.set("n", "<c-b>", ":Lex!<CR>")
@@ -122,5 +125,5 @@ keymap.set("n", "<leader>gd", ":Git diff<cr>")
 keymap.set("n", "<leader>gdh", ":Git diff head~1<cr>")
 keymap.set("n", "<leader>gl", ":Git log<cr>")
 
--- *** undotree ***
+-- *** plugin: undotree ***
 keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")

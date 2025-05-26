@@ -2,13 +2,12 @@ return {
     -- Main LSP Configuration
     "neovim/nvim-lspconfig",
     dependencies = {
-        -- Automatically install LSPs and related tools to stdpath for Neovim
-        { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
-        "williamboman/mason-lspconfig.nvim",
+        -- { "mason-org/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+        -- "mason-org/mason-lspconfig.nvim",
+        { "mason-org/mason.nvim", version = "1.11.0"},
+        { "mason-org/mason-lspconfig.nvim", version = "1.32.0"},
         "WhoIsSethDaniel/mason-tool-installer.nvim",
 
-        -- Useful status updates for LSP.
-        -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
         { "j-hui/fidget.nvim",       opts = {} },
 
         -- Allows extra capabilities provided by nvim-cmp
@@ -25,11 +24,6 @@ return {
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
             callback = function(event)
-                -- NOTE: Remember that Lua is a real programming language, and as such it is possible
-                -- to define small helper and utility functions so you don't have to repeat yourself.
-                --
-                -- In this case, we create a function that lets us more easily define mappings specific
-                -- for LSP related items. It sets the mode, buffer and description for us each time.
                 local map = function(keys, func, desc)
                     vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
                 end
@@ -71,10 +65,13 @@ return {
                 --  For example, in C this would take you to the header.
                 map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-                vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float)
-                vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-                vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-                vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+                map("<leader>vd", vim.diagnostic.open_float, "[V]iew [D]iagnostic")
+                
+                map("[d", vim.diagnostic.goto_prev, "Previous [D]iagnostic")
+
+                map("]d", vim.diagnostic.goto_next, "Next [D]iagnostic")
+
+                map("<leader>q", vim.diagnostic.setloclist, "View All Diagnostics")
 
                 -- The following two autocommands are used to highlight references of the
                 -- word under your cursor when your cursor rests there for a little while.
@@ -124,6 +121,8 @@ return {
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
+        local mason_packages_dir = vim.fn.stdpath('data') .. '/mason/packages/'
+
         -- Enable the following language servers
         --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
         --
@@ -138,33 +137,21 @@ return {
             templ = {},
 
             elixirls = {
-                cmd = { "/users/jason/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" }
+                cmd = { mason_packages_dir .. "elixir-ls/language_server.sh" }
             },
-            -- Some languages (like typescript) have entire language plugins that can be useful:
-            --    https://github.com/pmizio/typescript-tools.nvim
-            --
-            -- But for many setups, the LSP (`tsserver`) will work just fine
             ts_ls = {
-                settings = {
-                    -- add type linting to .js files via jsdoc
-                    implicitProjectConfiguration = {
-                        checkJs = true
-                    },
-                }
-            },
-            --
-            volar = {
-                filetypes = { "vue" },
                 init_options = {
-                    typescript = {
-                        tsdk =
-                        "/Users/jason/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib",
-                    },
-                    vue = {
-                        hybridMode = false,
+                    plugins = {
+                        {
+                            name = '@vue/typescript-plugin',
+                            location = mason_packages_dir .. "vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin",
+                            languages = { 'vue' },
+                        },
                     },
                 },
+                filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
             },
+            volar = {},
 
             -- tailwindcss = {
             --     filetypes = {

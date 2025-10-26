@@ -3,9 +3,21 @@ return {
     opts = {
         window = {
             backdrop = 1, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
-        }
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-    }
+            width = 80,
+            options = {
+                signcolumn = "no",
+                number = false,
+                relativenumber = false,
+                cursorline = false,
+                cursorcolumn = false,
+                foldcolumn = "0",
+                list = false,
+            },
+        },
+        plugins = {
+            tmux = {
+                enabled = false,
+            },
+        },
+    },
 }

@@ -51,6 +51,8 @@ opt.signcolumn = "yes"
 opt.showmode = true
 --vim.cmd([[ hi BufferTabpageFill guibg=NONE ctermbg=NONE ]])
 --vim.cmd([[ hi PmenuSel guibg=#e95678 ctermbg=red ]])
+--
+vim.cmd([[ highlight ColorColumn guibg=#1A1C23 ]])
 
 -- backspace
 opt.backspace = "indent,eol,start"
@@ -76,7 +78,7 @@ vim.g.netrw_bufsettings = "noma nomod nu nowrap ro nobl"
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     opts = opts or {}
-    opts.border = opts.border or "single"
+    opts.border = opts.border or "rounded"
     opts.max_width = opts.max_width or 80
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end

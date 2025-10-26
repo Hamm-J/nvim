@@ -20,7 +20,7 @@ return {
 				---Line-comment keymap
 				line = "gc",
 				---Block-comment keymap
-				block = "<leader>gb",
+				block = "gb",
 			},
 			---LHS of extra mappings
 			extra = {

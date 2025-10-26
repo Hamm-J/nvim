@@ -10,28 +10,34 @@ keymap.set("n", "<leader>rwu", "#``cgN")
 keymap.set("n", "<leader>rwd", "*``cgn")
 
 -- *** buffers ***
+-- save
+keymap.set("n", "<leader>w", "<cmd>write<CR>")
+keymap.set("n", "<leader>cc", "<cmd>close<CR>")
+keymap.set("n", "<leader>x", "<cmd>x<CR>")
+-- source
+keymap.set("n", "<leader>o", ":source ~/.config/nvim/init.lua<CR>")
 -- close buffers/splits
 keymap.set("n", "<leader>cb", ":bd<CR>")
 keymap.set("n", "<c-Q>", ":bd<CR>")
 -- keymap.set("n", "<leader>x", ":bd<CR>")
-keymap.set("n", "<leader>cs", ":close<CR>")
+-- keymap.set("n", "<leader>cs", ":close<CR>")
 -- keymap.set("n", "<leader>csb", ":bp<bar>sp<bar>bn<bar>bd<CR>") -- close split buffer, but not split
 -- keymap.set("n", "<space><c-q>", ":bp<bar>sp<bar>bn<bar>bd<CR>") -- close split buffer, but not split
 keymap.set("n", "<c-q>", ":bp<bar>sp<bar>bn<bar>bd<CR>") -- close split buffer, but not split
 keymap.set("n", "<leader>co", ":%bd|e#<CR>")
 
 -- tabs
-keymap.set("n", "<leader>tn", ":tabnew<CR>")
-keymap.set("n", "<leader>tc", ":tabclose<CR>")
+keymap.set("n", "<leader>tn", "<cmd>tabnew<CR>")
+keymap.set("n", "<leader>tc", "<cmd>tabclose<CR>")
 -- keymap.set("n", "tn", ":tabnew<CR>")
 -- keymap.set("n", "tc", ":tabclose<CR>")
 
 -- navigate splits
 -- switch splits
-keymap.set("n", "<c-k>", ":wincmd k<CR>")
-keymap.set("n", "<c-j>", ":wincmd j<CR>")
-keymap.set("n", "<c-h>", ":wincmd h<CR>")
-keymap.set("n", "<c-l>", ":wincmd l<CR>")
+keymap.set("n", "<c-k>", "<cmd>wincmd k<CR>")
+keymap.set("n", "<c-j>", "<cmd>wincmd j<CR>")
+keymap.set("n", "<c-h>", "<cmd>wincmd h<CR>")
+keymap.set("n", "<c-l>", "<cmd>wincmd l<CR>")
 -- resize splits
 keymap.set("n", "<M-+>", "5<c-W>+") -- increase height
 keymap.set("n", "<M-_>", "5<c-W>-") -- decrease height
@@ -41,19 +47,20 @@ keymap.set("n", "<M-<>", "5<c-W><") -- decrease width
 -- navigate buffers
 -- requires terminal configuration
 -- source: https://www.reddit.com/r/neovim/comments/uc6q8h/ability_to_map_ctrl_tab_and_more/
-keymap.set("n", "<C-Tab>", ":bnext<CR>")
-keymap.set("n", "<C-S-Tab>", ":bprevious<CR>")
-keymap.set("n", "<A-Tab>", ":b#<CR>")
-keymap.set("n", "gb", ":bnext<CR>")
-keymap.set("n", "gB", ":bprevious<CR>")
-keymap.set("n", "g#b", ":b#<CR>")
+keymap.set("n", "<C-Tab>", "<cmd>bnext<CR>")
+keymap.set("n", "<C-S-Tab>", "<cmd>bprevious<CR>")
+keymap.set("n", "<A-Tab>", "<cmd>b#<CR>")
+keymap.set("n", "gb", "<cmd>bnext<CR>")
+keymap.set("n", "gB", "<cmd>bprevious<CR>")
+-- keymap.set("n", "g#b", "<cmd>b#<cr>")
+keymap.set("n", "g<S-b>", "<cmd>b#<cr>")
 -- keymap.set("n", "<C-Tab>", ":bnext<CR>")
 -- keymap.set("n", "<C-S-Tab>", ":bprevious<CR>")
 keymap.set("n", "<leader>sn", "<C-w>T")
 keymap.set("n", "<leader>bf", ":buffers<CR>")
 
 --- *** plugin zenmode ***
-keymap.set("n", "<leader>z", ":ZenMode<CR>")
+keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
 
 -- *** file explorer ***
 -- keymap.set("n", "<c-b>", ":Explore<CR>")
@@ -113,8 +120,8 @@ keymap.set("n", "<leader>lr", ":LspRestart<CR>")
 
 -- *** git ***
 -- plugin: gitsigns
-keymap.set("n", "[g", ":Gitsigns prev_hunk<CR>")
-keymap.set("n", "]g", ":Gitsigns next_hunk<CR>")
+keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<CR>")
+keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<CR>")
 
 -- plugin: vim-fugitive
 keymap.set("n", "<leader>gs", ":Git status<cr>")
@@ -122,8 +129,9 @@ keymap.set("n", "<leader>ga", ":Git add .<cr>")
 keymap.set("n", "<leader>gc", ":Git commit<cr>")
 keymap.set("n", "<leader>gca", ":Git commit --amend<cr>")
 keymap.set("n", "<leader>gd", ":Git diff<cr>")
-keymap.set("n", "<leader>gdh", ":Git diff head~1<cr>")
+keymap.set("n", "<leader>gdh", ":Git diff HEAD~1<cr>")
+keymap.set("n", "<leader>gds", ":Git diff --staged<cr>")
 keymap.set("n", "<leader>gl", ":Git log<cr>")
 
 -- *** plugin: undotree ***
-keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
+keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")

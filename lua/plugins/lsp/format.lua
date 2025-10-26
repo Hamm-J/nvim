@@ -52,7 +52,10 @@ return {
         -- local diagnostics = null_ls.builtins.diagnostics
 		null_ls.setup({
 			sources = {
-				formatting.prettier,
+				formatting.prettier.with({
+                    filetypes = { "markdown" },
+                    extra_args = { "--tab-width", "4" },
+                }),
 				formatting.stylua,
 				-- diagnostics.eslint_d,
 				formatting.gofumpt,

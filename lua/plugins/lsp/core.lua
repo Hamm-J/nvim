@@ -14,7 +14,7 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        "hrsh7th/cmp-nvim-lua",
+        -- "hrsh7th/cmp-nvim-lua",
     },
     config = function()
         --  This function gets run when an LSP attaches to a particular buffer.
@@ -51,7 +51,7 @@ return {
 
                 -- Fuzzy find all the symbols in your current workspace.
                 --  Similar to document symbols, except searches over your entire project.
-                map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+                -- map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
                 -- Rename the variable under your cursor.
                 --  Most Language Servers support renaming across files, etc.
@@ -135,6 +135,9 @@ return {
         local servers = {
             gopls = {},
             templ = {},
+            intelephense = {},
+            bashls = {},
+            -- phpactor = {},
 
             elixirls = {
                 cmd = { mason_packages_dir .. "elixir-ls/language_server.sh" }

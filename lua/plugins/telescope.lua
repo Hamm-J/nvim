@@ -147,6 +147,17 @@ return {
                     initial_mode = "normal",
                     fname_width = 90,
                 },
+                lsp_document_symbols = {
+                    initial_mode = "normal",
+                    fname_width = 90,
+                    layout_config = {
+                        height = 0.7,
+                        width = 0.4,
+                        vertical = {
+                            prompt_position = "top"
+                        },
+                    },
+                },
             },
             extensions = {
                 ["ui-select"] = {

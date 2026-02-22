@@ -187,6 +187,18 @@ return {
         vim.keymap.set("n", "<leader>lo", builtin.lsp_outgoing_calls, { desc = "[L]SP [O]utgoing Calls" })
         vim.keymap.set("n", "<leader>k", builtin.keymaps, { desc = "[K]eymaps" })
         vim.keymap.set("n", "<leader>m", builtin.marks, { desc = "[M]arks" })
+        vim.keymap.set('n', '<leader>g/', function()
+            require('telescope.builtin').current_buffer_fuzzy_find({
+                default_text = vim.fn.expand('<cword>'),
+                layout_config = {
+                    height = 0.7,
+                    width = 0.5,
+                    vertical = {
+                        prompt_position = "top"
+                    },
+                },
+            })
+        end, { desc = 'Fuzzy find word under cursor in current buffer' })
 
         -- Slightly advanced example of overriding default behavior and theme
         vim.keymap.set("n", "<leader>/", function()

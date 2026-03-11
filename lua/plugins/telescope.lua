@@ -187,7 +187,7 @@ return {
         vim.keymap.set("n", "<leader>lo", builtin.lsp_outgoing_calls, { desc = "[L]SP [O]utgoing Calls" })
         vim.keymap.set("n", "<leader>k", builtin.keymaps, { desc = "[K]eymaps" })
         vim.keymap.set("n", "<leader>m", builtin.marks, { desc = "[M]arks" })
-        vim.keymap.set('n', '<leader>g/', function()
+        vim.keymap.set('n', 'g/', function()
             require('telescope.builtin').current_buffer_fuzzy_find({
                 default_text = vim.fn.expand('<cword>'),
                 layout_config = {

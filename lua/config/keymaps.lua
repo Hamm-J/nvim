@@ -14,6 +14,9 @@ keymap.set("n", "<leader>rwd", "*``cgn")
 keymap.set("n", "<leader>w", "<cmd>write<CR>")
 keymap.set("n", "<leader>cc", "<cmd>close<CR>")
 keymap.set("n", "<leader>x", "<cmd>x<CR>")
+keymap.set("n", "<leader>qq", "<cmd>q<CR>")
+keymap.set("n", "<leader>qa", "<cmd>qa<CR>")
+keymap.set("n", "<leader>!", "<cmd>qa!<CR>")
 -- source
 keymap.set("n", "<leader>o", ":source ~/.config/nvim/init.lua<CR>")
 -- close buffers/splits

@@ -32,6 +32,9 @@ opt.autoindent = true
 opt.smartindent = true
 opt.scrolloff = 8
 -- opt.laststatus = 3
+vim.o.timeout = true
+vim.o.timeoutlen = 250
+-- vim.o.ttimeoutlen = 10  -- Reduces the wait time for key codes
 
 -- line wrapping
 opt.wrap = false
@@ -44,6 +47,8 @@ opt.smartcase = true
 -- opt.cursorline = true
 
 -- appearance
+--
+vim.o.termsync = false
 opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes"
@@ -51,6 +56,7 @@ opt.signcolumn = "yes"
 opt.showmode = true
 --vim.cmd([[ hi BufferTabpageFill guibg=NONE ctermbg=NONE ]])
 --vim.cmd([[ hi PmenuSel guibg=#e95678 ctermbg=red ]])
+--
 --
 vim.cmd([[ highlight ColorColumn guibg=#1A1C23 ]])
 

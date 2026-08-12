@@ -68,7 +68,14 @@ keymap.set("n", "<leader>z", "<cmd>ZenMode<CR>")
 -- *** file explorer ***
 -- keymap.set("n", "<c-b>", ":Explore<CR>")
 -- keymap.set("n", "<c-b>", ":Lex!<CR>")
-keymap.set("n", "<c-b>", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+-- keymap.set("n", "<c-b>", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+keymap.set("n", "<C-b>", function()
+  if vim.bo.filetype == "oil" then
+    require("oil").close()
+  else
+    require("oil").open()
+  end
+end)
 
 -- *** jumplist ***
 -- keymap.set("n", "<leader>j", ":jumps<CR>")
@@ -77,15 +84,16 @@ keymap.set("n", "<leader>cj", ":clearjumps<CR>")
 
 -- *** fuzzy search ***
 -- plugin: telescope
-keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>")
-keymap.set("n", "<leader><C-p>", "<cmd>Telescope resume<cr>")
+-- keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>")
+-- keymap.set("n", "<leader><C-p>", "<cmd>Telescope resume<cr>")
 -- keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>")
 -- keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>")
 -- keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>")
-keymap.set("n", "<c-n>", "<cmd>Telescope buffers<cr>")
-keymap.set("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
-keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
-keymap.set("n", "<leader>da", "<cmd>Telescope diagnostics<cr>")
+-- keymap.set("n", "<c-n>", "<cmd>Telescope buffers<cr>")
+-- keymap.set("n", "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>")
+-- keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<cr>")
+-- keymap.set("n", "<leader>da", "<cmd>Telescope diagnostics<cr>")
+-- keymap.set("n", "<leader>td", "<cmd>TodoTelescope<cr>")
 
 -- *** clipboard ***
 keymap.set("n", "x", '"_x') -- prevent x from filling up yank buffer
@@ -132,9 +140,11 @@ keymap.set("n", "<leader>ga", ":Git add .<cr>")
 keymap.set("n", "<leader>gc", ":Git commit<cr>")
 keymap.set("n", "<leader>gca", ":Git commit --amend<cr>")
 keymap.set("n", "<leader>gd", ":Git diff<cr>")
+keymap.set("n", "<leader>gvd", ":Gvdiff<cr>")
 keymap.set("n", "<leader>gdh", ":Git diff HEAD~1<cr>")
 keymap.set("n", "<leader>gds", ":Git diff --staged<cr>")
 keymap.set("n", "<leader>gl", ":Git log<cr>")
+keymap.set("n", "<leader>gb", ":Git blame<cr>")
 
 -- *** plugin: undotree ***
 keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>")

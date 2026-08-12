@@ -19,8 +19,29 @@ return {
 			},
 			sections = {
 				lualine_a = {
-					-- "branch"
-					"filename",
+					{
+						"filename",
+						cond = function()
+							-- return vim.bo.filetype ~= "oil" and vim.fn.bufname("") ~= ""
+							return vim.bo.filetype ~= "oil"
+						end,
+					},
+					{
+						function()
+							return require("oil").get_current_dir()
+						end,
+						cond = function()
+							return vim.bo.filetype == "oil"
+						end,
+					},
+					-- {
+					-- 	function()
+					-- 		return vim.fn.fnamemodify(vim.fn.getcwd(), ":p")
+					-- 	end,
+					-- 	cond = function()
+					-- 		return vim.fn.bufname("") == ""
+					-- 	end,
+					-- },
 				},
 				lualine_b = {
 					-- "branch",
@@ -35,6 +56,14 @@ return {
 				-- },
 				lualine_c = {
 					--"filename",
+					-- {
+					--     function()
+					--         return require("oil").get_current_dir()
+					--     end,
+					--     cond = function()
+					--         return vim.bo.filetype == "oil"
+					--     end,
+					-- },
 				},
 				-- lualine_x = { "progress" },
 				-- lualine_y = { "location" },
@@ -44,6 +73,8 @@ return {
 				lualine_y = {
 					-- "diff"
 					-- "location"
+					-- "searchcount",
+					-- "selectioncount",
 				},
 				lualine_z = {
 					"progress",
@@ -57,6 +88,14 @@ return {
 			tabline = {
 				lualine_a = {
 					-- "branch"
+					-- {
+					--     function()
+					--         return require("oil").get_current_dir()
+					--     end,
+					--     cond = function()
+					--         return vim.bo.filetype == "oil"
+					--     end,
+					-- },
 					{
 						"buffers",
 						symbols = {

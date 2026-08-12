@@ -8,7 +8,17 @@ return {
 		{ "mason-org/mason-lspconfig.nvim", version = "1.32.0" },
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
-		{ "j-hui/fidget.nvim", opts = {} },
+		{
+			"j-hui/fidget.nvim",
+			opts = {
+				notification = {
+					window = {
+						-- makes the notification window background transparent
+						winblend = 0,
+					},
+				},
+			},
+		},
 
 		-- Allows extra capabilities provided by nvim-cmp
 		"hrsh7th/cmp-nvim-lsp",
@@ -47,7 +57,7 @@ return {
 
 				-- Fuzzy find all the symbols in your current document.
 				--  Symbols are things like variables, functions, types, etc.
-				map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+				-- map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
 
 				-- Fuzzy find all the symbols in your current workspace.
 				--  Similar to document symbols, except searches over your entire project.
@@ -134,6 +144,16 @@ return {
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 		local servers = {
 			gopls = {},
+			astro = {
+				init_options = {
+					typescript = {
+						tsdk = vim.fs.normalize(
+							vim.fn.stdpath("data")
+								.. "/mason/packages/astro-language-server/node_modules/typescript/lib"
+						),
+					},
+				},
+			},
 			templ = {},
 			intelephense = {},
 			bashls = {},
@@ -164,59 +184,71 @@ return {
 			},
 			volar = {},
 
-			basedpyright = {
-				settings = {
-					basedpyright = {
-						analysis = {
-							useLibraryCodeForTypes = true,
-							-- typeCheckingMode = "basic",
-							typeCheckingMode = "recommended",
-							diagnosticMode = "workspace",
-							autoSearchPath = true,
-							-- inlayHints = {
-							--       reportUnusedCallResult = false,
-							-- },
-							diagnosticSeverityOverrides = {
-								reportAny = false,
-								reportExplicitAny = false,
-								-- reportMissingTypeArgument = false,
-								-- reportMissingTypeStubs = false,
-								-- reportUnknownArgumentType = false,
-								-- reportUnknownMemberType = false,
-								-- reportUnknownParameterType = false,
-								-- reportUnknownVariableType = false,
-								reportUnusedCallResult = false,
-								-- reportUnusedParameter = false,
-							},
-							-- extraPaths = {
-							--       "...",
-							--       "...",
-							-- },
-						},
-						python = {
-							venvPath = "./venv",
-							venv = "venv",
-						},
-					},
-				},
-			},
+            ty =  {
+                  cmd = { "ty", "server" },
+                  filetypes = { "python" },
+                  root_dir = vim.fs.root(0, { ".git/", "pyproject.toml" }),
+                  single_file_support = true,
+            },
+
+			-- basedpyright = {
+			-- 	settings = {
+			-- 		basedpyright = {
+			-- 			analysis = {
+			-- 				useLibraryCodeForTypes = true,
+			-- 				-- typeCheckingMode = "basic",
+			-- 				typeCheckingMode = "recommended",
+			-- 				diagnosticMode = "workspace",
+			-- 				autoSearchPath = true,
+			-- 				-- inlayHints = {
+			-- 				--       reportUnusedCallResult = false,
+			-- 				-- },
+			-- 				diagnosticSeverityOverrides = {
+			-- 					reportUnannotatedClassAttribute = false,
+			-- 					reportAny = false,
+			-- 					reportExplicitAny = false,
+			-- 					-- reportMissingTypeArgument = false,
+			-- 					-- reportMissingTypeStubs = false,
+			-- 					-- reportUnknownArgumentType = false,
+			-- 					reportUnknownMemberType = false,
+			-- 					-- reportUnknownParameterType = false,
+			-- 					reportUnknownVariableType = false,
+			-- 					reportUnusedCallResult = false,
+			-- 					reportCallInDefaultInitializer = false,
+			-- 					-- reportUnusedParameter = false,
+   --                              reportUninitializedInstanceVariable = false,
+			-- 				},
+			-- 				extraPaths = {
+			-- 					"./venv",
+			-- 					"./.venv",
+			-- 				},
+			-- 			},
+			-- 			python = {
+			-- 				venvPath = ".",
+			-- 				venv = "venv",
+			-- 			},
+			-- 		},
+			-- 	},
+			-- },
 
 			-- tailwindcss = {
-			--     filetypes = {
-			--         "javascript",
-			--         "typescript",
-			--         "html",
-			--         "react",
-			--         "vue",
-			--         "css",
-			--         "templ",
-			--         -- "heex"
-			--     },
-			--     init_options = {
-			--         userLanguages = {
-			--             templ = "html",
-			--         },
-			--     },
+			-- 	filetypes = {
+			-- 		"javascript",
+			-- 		"typescript",
+			-- 		"html",
+			-- 		"react",
+			-- 		"vue",
+			-- 		"css",
+			-- 		"templ",
+			-- 		"jsx",
+			-- 		"tsx",
+			-- 		-- "heex"
+			-- 	},
+			-- 	init_options = {
+			-- 		userLanguages = {
+			-- 			templ = "html",
+			-- 		},
+			-- 	},
 			-- },
 
 			sqlls = {
@@ -244,7 +276,16 @@ return {
 
 		-- You can add other tools here that you want Mason to install
 		-- for you, so that they are available from within Neovim.
-		local ensure_installed = vim.tbl_keys(servers or {})
+		-- local ensure_installed = vim.tbl_keys(servers or {})
+		-- vim.list_extend(ensure_installed, {
+		-- 	"stylua", -- Used to format Lua code
+		-- })
+        local ensure_installed = {}
+		for server_name, _ in pairs(servers) do
+			if server_name ~= "ty" then
+				table.insert(ensure_installed, server_name)
+			end
+		end
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format Lua code
 		})
@@ -263,6 +304,16 @@ return {
 				end,
 			},
 		})
+
+        -- Manually configure and enable 'ty' (installed on your system PATH)
+		local ty_config = servers["ty"]
+		if ty_config then
+			ty_config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, ty_config.capabilities or {})
+			
+			-- Merge with your overrides or use the defaults
+			vim.lsp.config("ty", ty_config)
+			vim.lsp.enable("ty")
+		end
 
 		local diagnosticSigns = {
 			-- Error = "󰅚 ",

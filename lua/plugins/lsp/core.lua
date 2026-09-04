@@ -143,35 +143,35 @@ return {
 		--  - settings (table): Override the default settings passed when initializing the server.
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 		local servers = {
-			gopls = {},
-			astro = {
-				init_options = {
-					typescript = {
-						tsdk = vim.fs.normalize(
-							vim.fn.stdpath("data")
-								.. "/mason/packages/astro-language-server/node_modules/typescript/lib"
-						),
-					},
-				},
-			},
-			templ = {},
-			intelephense = {},
+			-- gopls = {},
+			-- astro = {
+			-- 	init_options = {
+			-- 		typescript = {
+			-- 			tsdk = vim.fs.normalize(
+			-- 				vim.fn.stdpath("data")
+			-- 					.. "/mason/packages/astro-language-server/node_modules/typescript/lib"
+			-- 			),
+			-- 		},
+			-- 	},
+			-- },
+			-- templ = {},
+			-- intelephense = {},
 			bashls = {},
 			-- phpactor = {},
 
-			elixirls = {
-				cmd = { mason_packages_dir .. "elixir-ls/language_server.sh" },
-			},
+			-- elixirls = {
+			-- 	cmd = { mason_packages_dir .. "elixir-ls/language_server.sh" },
+			-- },
 			ts_ls = {
 				init_options = {
-					plugins = {
-						{
-							name = "@vue/typescript-plugin",
-							location = mason_packages_dir
-								.. "vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin",
-							languages = { "vue" },
-						},
-					},
+					-- plugins = {
+					-- 	{
+					-- 		name = "@vue/typescript-plugin",
+					-- 		location = mason_packages_dir
+					-- 			.. "vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin",
+					-- 		languages = { "vue" },
+					-- 	},
+					-- },
 				},
 				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 				settings = {
@@ -182,7 +182,7 @@ return {
 					},
 				},
 			},
-			volar = {},
+			-- volar = {},
 
             ty =  {
                   cmd = { "ty", "server" },

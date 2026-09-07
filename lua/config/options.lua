@@ -5,17 +5,10 @@ vim.filetype.add({
 	extension = {
 		templ = "templ",
 	},
-})
-vim.filetype.add({
 	pattern = {
 		[".*%.blade%.php"] = "blade",
 	},
 })
-vim.cmd([[
-augroup BladeFiltypeRelated
-  au BufNewFile,BufRead *.blade.php set ft=blade
-augroup END
-]])
 
 -- line numbers
 opt.relativenumber = true
@@ -46,8 +39,6 @@ opt.smartcase = true
 -- opt.cursorline = true
 
 -- appearance
---
-vim.o.termsync = false
 opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes"
@@ -71,19 +62,3 @@ opt.splitbelow = true
 
 -- word units
 opt.iskeyword:append("-")
-
--- netrw
-vim.g.netrw_banner = 0
--- vim.g.netrw_liststyle = 3
-vim.g.netrw_winsize = 40
-vim.g.netrw_bufsettings = "noma nomod nu nowrap ro nobl"
-
--- hover menu
--- https://neovim.discourse.group/t/lsp-hover-float-window-too-wide/3276
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-    opts = opts or {}
-    opts.border = opts.border or "rounded"
-    opts.max_width = opts.max_width or 80
-    return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end

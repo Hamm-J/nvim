@@ -125,7 +125,10 @@ keymap.set("n", "<leader>dc", ':lua require("dapui").float_element("stacks", { e
 -- keymap.set("n", "<leader>dhc", ':lua require("dapui").float_element("console", { width = 80, enter = true })<CR>')
 
 -- *** lsp ***
--- keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+-- Keeps the 80-column cap from the old open_floating_preview override.
+keymap.set("n", "K", function()
+	vim.lsp.buf.hover({ max_width = 80 })
+end)
 keymap.set("n", "<leader>lr", "<cmd>lsp restart<CR>") -- :h :lsp-restart
 keymap.set("n", "<leader>li", "<cmd>checkhealth vim.lsp<CR>") -- replaces :LspInfo
 

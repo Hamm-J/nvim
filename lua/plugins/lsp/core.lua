@@ -180,12 +180,11 @@ return {
 			},
 			-- volar = {},
 
-            ty =  {
-                  cmd = { "ty", "server" },
-                  filetypes = { "python" },
-                  root_dir = vim.fs.root(0, { ".git/", "pyproject.toml" }),
-                  single_file_support = true,
-            },
+			ty = {
+				cmd = { "ty", "server" },
+				filetypes = { "python" },
+				root_markers = { "pyproject.toml", ".git" },
+			},
 
 			-- basedpyright = {
 			-- 	settings = {

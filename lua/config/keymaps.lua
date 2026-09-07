@@ -126,8 +126,8 @@ keymap.set("n", "<leader>dc", ':lua require("dapui").float_element("stacks", { e
 
 -- *** lsp ***
 -- keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-keymap.set("n", "<leader>lr", ":LspRestart<CR>")
--- keymap.set("n", "<leader>li", ":LspInfo<CR>")
+keymap.set("n", "<leader>lr", "<cmd>lsp restart<CR>") -- :h :lsp-restart
+keymap.set("n", "<leader>li", "<cmd>checkhealth vim.lsp<CR>") -- replaces :LspInfo
 
 -- *** git ***
 -- plugin: gitsigns

@@ -23,7 +23,6 @@ opt.number = true
 opt.colorcolumn = "80"
 
 -- tabs & indentation
-opt.syntax = "on"
 opt.tabstop = 4
 opt.softtabstop = 4
 opt.shiftwidth = 4

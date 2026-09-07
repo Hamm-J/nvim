@@ -184,6 +184,19 @@ return {
 				cmd = { "ty", "server" },
 				filetypes = { "python" },
 				root_markers = { "pyproject.toml", ".git" },
+				-- nvim does not advertise didChangeWatchedFiles on Linux (
+				-- vim/lsp/protocol.lua), so ty never registers file watchers and
+				-- cannot see modules created after it started. 
+                -- Opt in for ty only, so other servers keep the upstream
+                -- default.
+				capabilities = {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = true,
+							relativePatternSupport = true,
+						},
+					},
+				},
 			},
 
 			-- basedpyright = {

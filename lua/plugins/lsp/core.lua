@@ -77,10 +77,6 @@ return {
 
 				map("<leader>vd", vim.diagnostic.open_float, "[V]iew [D]iagnostic")
 
-				map("[d", vim.diagnostic.goto_prev, "Previous [D]iagnostic")
-
-				map("]d", vim.diagnostic.goto_next, "Next [D]iagnostic")
-
 				map("<leader>q", vim.diagnostic.setloclist, "View All Diagnostics")
 
 				-- The following two autocommands are used to highlight references of the
@@ -89,7 +85,7 @@ return {
 				--
 				-- When you move your cursor, the highlights will be cleared (the second autocommand).
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+				if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
 					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 						buffer = event.buf,
@@ -116,7 +112,7 @@ return {
 				-- code, if the language server you are using supports them
 				--
 				-- This may be unwanted, since they displace some of your code
-				if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+				if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
@@ -315,28 +311,23 @@ return {
 			vim.lsp.enable("ty")
 		end
 
-		local diagnosticSigns = {
-			-- Error = "󰅚 ",
-			-- Warn = "󰀪 ",
-			-- Hint = "󰌶 ",
-			-- Info = " ",
-			Error = "!",
-			Warn = "?",
-			Hint = "-",
-			Info = "-",
-		}
-		for type, icon in pairs(diagnosticSigns) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, {
-				text = icon,
-				texthl = hl,
-				numhl = hl,
-			})
-		end
-
+		local severity = vim.diagnostic.severity
 		vim.diagnostic.config({
 			virtual_text = false,
-			signs = true,
+			signs = {
+				text = {
+					[severity.ERROR] = "!",
+					[severity.WARN] = "?",
+					[severity.HINT] = "-",
+					[severity.INFO] = "-",
+				},
+				numhl = {
+					[severity.ERROR] = "DiagnosticSignError",
+					[severity.WARN] = "DiagnosticSignWarn",
+					[severity.HINT] = "DiagnosticSignHint",
+					[severity.INFO] = "DiagnosticSignInfo",
+				},
+			},
 			underline = true,
 			update_in_insert = false,
 			severity_sort = true,

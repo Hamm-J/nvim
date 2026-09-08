@@ -1,12 +1,8 @@
 return {
-	-- Main LSP Configuration
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		-- { "mason-org/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
-		-- "mason-org/mason-lspconfig.nvim",
-		{ "mason-org/mason.nvim", version = "1.11.0" },
-		{ "mason-org/mason-lspconfig.nvim", version = "1.32.0" },
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		{ "mason-org/mason.nvim", opts = {} },
+		"mason-org/mason-lspconfig.nvim",
 
 		{
 			"j-hui/fidget.nvim",
@@ -22,9 +18,6 @@ return {
 
 		-- Allows extra capabilities provided by nvim-cmp
 		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		-- "hrsh7th/cmp-nvim-lua",
 	},
 	config = function()
 		--  This function gets run when an LSP attaches to a particular buffer.
@@ -120,208 +113,19 @@ return {
 			end,
 		})
 
-		-- LSP servers and clients are able to communicate to each other what features they support.
-		--  By default, Neovim doesn't support everything that is in the LSP specification.
-		--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-		--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-		local mason_packages_dir = vim.fn.stdpath("data") .. "/mason/packages/"
-
-		-- Enable the following language servers
-		--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-		--
-		--  Add any additional override configuration in the following tables. Available keys are:
-		--  - cmd (table): Override the default command used to start the server
-		--  - filetypes (table): Override the default list of associated filetypes for the server
-		--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-		--  - settings (table): Override the default settings passed when initializing the server.
-		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-		local servers = {
-			-- gopls = {},
-			-- astro = {
-			-- 	init_options = {
-			-- 		typescript = {
-			-- 			tsdk = vim.fs.normalize(
-			-- 				vim.fn.stdpath("data")
-			-- 					.. "/mason/packages/astro-language-server/node_modules/typescript/lib"
-			-- 			),
-			-- 		},
-			-- 	},
-			-- },
-			-- templ = {},
-			-- intelephense = {},
-			bashls = {},
-			-- phpactor = {},
-
-			-- elixirls = {
-			-- 	cmd = { mason_packages_dir .. "elixir-ls/language_server.sh" },
-			-- },
-			ts_ls = {
-				init_options = {
-					-- plugins = {
-					-- 	{
-					-- 		name = "@vue/typescript-plugin",
-					-- 		location = mason_packages_dir
-					-- 			.. "vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin",
-					-- 		languages = { "vue" },
-					-- 	},
-					-- },
-				},
-				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-				settings = {
-					implicitProjectConfiguration = {
-						checkJs = true,
-						strict = true,
-						lib = { "es2022", "dom" },
-					},
-				},
-			},
-			-- volar = {},
-
-			ty = {
-				cmd = { "ty", "server" },
-				filetypes = { "python" },
-				root_markers = { "pyproject.toml", ".git" },
-				-- nvim does not advertise didChangeWatchedFiles on Linux (
-				-- vim/lsp/protocol.lua), so ty never registers file watchers and
-				-- cannot see modules created after it started. 
-                -- Opt in for ty only, so other servers keep the upstream
-                -- default.
-				capabilities = {
-					workspace = {
-						didChangeWatchedFiles = {
-							dynamicRegistration = true,
-							relativePatternSupport = true,
-						},
-					},
-				},
-			},
-
-			-- basedpyright = {
-			-- 	settings = {
-			-- 		basedpyright = {
-			-- 			analysis = {
-			-- 				useLibraryCodeForTypes = true,
-			-- 				-- typeCheckingMode = "basic",
-			-- 				typeCheckingMode = "recommended",
-			-- 				diagnosticMode = "workspace",
-			-- 				autoSearchPath = true,
-			-- 				-- inlayHints = {
-			-- 				--       reportUnusedCallResult = false,
-			-- 				-- },
-			-- 				diagnosticSeverityOverrides = {
-			-- 					reportUnannotatedClassAttribute = false,
-			-- 					reportAny = false,
-			-- 					reportExplicitAny = false,
-			-- 					-- reportMissingTypeArgument = false,
-			-- 					-- reportMissingTypeStubs = false,
-			-- 					-- reportUnknownArgumentType = false,
-			-- 					reportUnknownMemberType = false,
-			-- 					-- reportUnknownParameterType = false,
-			-- 					reportUnknownVariableType = false,
-			-- 					reportUnusedCallResult = false,
-			-- 					reportCallInDefaultInitializer = false,
-			-- 					-- reportUnusedParameter = false,
-   --                              reportUninitializedInstanceVariable = false,
-			-- 				},
-			-- 				extraPaths = {
-			-- 					"./venv",
-			-- 					"./.venv",
-			-- 				},
-			-- 			},
-			-- 			python = {
-			-- 				venvPath = ".",
-			-- 				venv = "venv",
-			-- 			},
-			-- 		},
-			-- 	},
-			-- },
-
-			-- tailwindcss = {
-			-- 	filetypes = {
-			-- 		"javascript",
-			-- 		"typescript",
-			-- 		"html",
-			-- 		"react",
-			-- 		"vue",
-			-- 		"css",
-			-- 		"templ",
-			-- 		"jsx",
-			-- 		"tsx",
-			-- 		-- "heex"
-			-- 	},
-			-- 	init_options = {
-			-- 		userLanguages = {
-			-- 			templ = "html",
-			-- 		},
-			-- 	},
-			-- },
-
-			sqlls = {
-				autostart = false,
-			},
-			-- htmx = {},
-
-			lua_ls = {
-				-- cmd = {...},
-				-- filetypes = { ...},
-				-- capabilities = {},
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-						-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-						-- diagnostics = { disable = { 'missing-fields' } },
-					},
-				},
-			},
-		}
-
-		require("mason").setup()
-
-		-- You can add other tools here that you want Mason to install
-		-- for you, so that they are available from within Neovim.
-		-- local ensure_installed = vim.tbl_keys(servers or {})
-		-- vim.list_extend(ensure_installed, {
-		-- 	"stylua", -- Used to format Lua code
-		-- })
-        local ensure_installed = {}
-		for server_name, _ in pairs(servers) do
-			if server_name ~= "ty" then
-				table.insert(ensure_installed, server_name)
-			end
-		end
-		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format Lua code
+		-- Nvim deep-merges this over make_client_capabilities() (see
+		-- vim/lsp/client.lua), so only the nvim-cmp delta is needed here.
+		vim.lsp.config("*", {
+			capabilities = require("cmp_nvim_lsp").default_capabilities(),
 		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					-- This handles overriding only values explicitly passed
-					-- by the server configuration above. Useful when disabling
-					-- certain features of an LSP (for example, turning off formatting for tsserver)
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					vim.lsp.config(server_name, server)
-					vim.lsp.enable(server_name)
-				end,
-			},
+			automatic_enable = {
+                exclude = {
+                    "sqlls",
+                }
+            },
 		})
-
-        -- Manually configure and enable 'ty' (installed on your system PATH)
-		local ty_config = servers["ty"]
-		if ty_config then
-			ty_config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, ty_config.capabilities or {})
-			
-			-- Merge with your overrides or use the defaults
-			vim.lsp.config("ty", ty_config)
-			vim.lsp.enable("ty")
-		end
 
 		local severity = vim.diagnostic.severity
 		vim.diagnostic.config({

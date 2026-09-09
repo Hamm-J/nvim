@@ -28,6 +28,11 @@ vim.o.timeout = true
 vim.o.timeoutlen = 250
 -- vim.o.ttimeoutlen = 10  -- Reduces the wait time for key codes
 
+-- completion
+-- popup: docs for the selected item; fuzzy: 0.12 fuzzy matching;
+-- noinsert: nothing is inserted until you pick with <C-y>.
+opt.completeopt = "menu,menuone,popup,fuzzy,noinsert"
+
 -- line wrapping
 opt.wrap = false
 

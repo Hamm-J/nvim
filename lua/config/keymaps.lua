@@ -132,6 +132,16 @@ end)
 keymap.set("n", "<leader>lr", "<cmd>lsp restart<CR>") -- :h :lsp-restart
 keymap.set("n", "<leader>li", "<cmd>checkhealth vim.lsp<CR>") -- replaces :LspInfo
 
+-- *** snippets ***
+-- <Tab>/<S-Tab> already jump natively while a snippet is active; these keep
+-- the old LuaSnip bindings. Delete if you'd rather just use Tab.
+keymap.set({ "i", "s" }, "<C-l>", function()
+	vim.snippet.jump(1)
+end)
+keymap.set({ "i", "s" }, "<C-h>", function()
+	vim.snippet.jump(-1)
+end)
+
 -- *** git ***
 -- plugin: gitsigns
 keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<CR>")

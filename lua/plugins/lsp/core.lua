@@ -15,9 +15,6 @@ return {
 				},
 			},
 		},
-
-		-- Allows extra capabilities provided by nvim-cmp
-		"hrsh7th/cmp-nvim-lsp",
 	},
 	config = function()
 		--  This function gets run when an LSP attaches to a particular buffer.
@@ -110,13 +107,18 @@ return {
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
 				end
-			end,
-		})
 
-		-- Nvim deep-merges this over make_client_capabilities() (see
-		-- vim/lsp/client.lua), so only the nvim-cmp delta is needed here.
-		vim.lsp.config("*", {
-			capabilities = require("cmp_nvim_lsp").default_capabilities(),
+				-- Native completion. autotrigger=false keeps the manual-only
+				-- behaviour nvim-cmp had via `autocomplete = false`.
+				-- <C-y> accepts, expanding snippets and applying auto-imports.
+				if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+					vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = false })
+					vim.keymap.set("i", "<C-Space>", vim.lsp.completion.get, {
+						buffer = event.buf,
+						desc = "LSP: Trigger completion",
+					})
+				end
+			end,
 		})
 
 		require("mason-lspconfig").setup({
